@@ -7,7 +7,7 @@ from draw import Plot
 env = gym.make('BipedalWalker-v3', render_mode = 'human')
 training_episodes = 1000
 
-part_size = 0.3
+part_size = 0.15
 upper_bound = 1
 lower_bound = -1
 part_number = (upper_bound - lower_bound)/part_size
@@ -31,12 +31,6 @@ def generate_action(action_idx):
     lowers = [lower_bound + part_size * action_idx[i] for i in range(4)]
     uppers = [lower_bound + part_size * (action_idx[i] + 1) for i in range(4)]
     return [random.uniform(lowers[i], uppers[i]) for i in range(4)]
-
-def x_speed(state, action):
-    action = generate_action(action)
-    speed = state[1]/np.cos(state[0]) + state[2] + (state[5] + action[0])/np.cos(state[4]) + (state[7] + action[1])/np.cos(state[6]) + \
-        (state[10] + action[2])/np.cos(state[9]) + (state[12] + action[3])/np.cos(state[11])
-    return speed
 
 def hull_x_speed(state, action):
     action = generate_action(action)
@@ -84,12 +78,6 @@ def vel_x_speed(state, action):
 def vel_y_speed(state, action):
     return state[3]
 
-def y_speed(state, action):
-    action = generate_action(action)
-    speed = state[1]/np.sin(state[0]) + state[3] + (state[5] + action[0])/np.sin(state[4]) + (state[7] + action[1])/np.sin(state[6]) + \
-        (state[10] + action[2])/np.sin(state[9]) + (state[12] + action[3])/np.sin(state[11])
-    return speed
-
 def check_contact_with_ground(state, action):
     global k
     if state[8] and state[13]:
@@ -130,5 +118,4 @@ aql.save()
 print('Max score: ', max(scores), ' -- Avg score: ', sum(scores)/len(scores))
 env.close()
 
-# if sum(scores)/len(scores) > aql.pre_scores.mean():
-Plot(time, scores).draw2d('plot1.png')
+Plot(time, scores).draw2d('plot.png')

@@ -44,7 +44,7 @@ class ApproximateQLearning:
 
     def save(self, path='w'):
         # if np.mean(self.pos_scores) > np.mean(self.pre_scores):
-            # np.save('scores', self.pos_scores)
+            np.save('scores', self.pos_scores)
             np.save(path, self.w)
 
     def load(self, path='w.npy'):
