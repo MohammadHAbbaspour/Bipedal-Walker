@@ -7,7 +7,7 @@ from draw import Plot
 env = gym.make('BipedalWalker-v3', render_mode = 'human')
 training_episodes = 1000
 
-part_size = 0.15
+part_size = 0.4
 upper_bound = 1
 lower_bound = -1
 part_number = (upper_bound - lower_bound)/part_size
@@ -96,8 +96,8 @@ state = env.reset()[0]
 scores = []
 time = []
 total_reward = 0
-env = gym.make("BipedalWalker-v3", render_mode='rgb_array')
-env = gym.wrappers.RecordVideo(env, 'video2', step_trigger = lambda x: x<= 2*training_episodes, name_prefix='output', video_length=240, disable_logger=True)
+# env = gym.make("BipedalWalker-v3", render_mode='rgb_array')
+# env = gym.wrappers.RecordVideo(env, 'video2', step_trigger = lambda x: x<= 2*training_episodes, name_prefix='output', video_length=240, disable_logger=True)
 env.reset()
 for episode in range(training_episodes):
     action = aql.get_action(state)
